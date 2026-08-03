@@ -57,16 +57,6 @@ npm run build
 
 ---
 
-## ☁️ Publicação no Vercel
-
-O PuroMagnet está 100% pronto para publicação no **Vercel** ou **Netlify**:
-
-1. Suba o código para o seu repositório GitHub.
-2. Acesse [vercel.com](https://vercel.com) e clique em **Add New Project**.
-3. Importe o repositório `PuroMagnet`.
-4. Mantenha as configurações padrão (Vite é detectado automaticamente) e clique em **Deploy**.
-
----
 
 ## 📜 Licença & Créditos
 
