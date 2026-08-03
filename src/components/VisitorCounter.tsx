@@ -1,58 +1,51 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Eye, Activity } from 'lucide-react';
+import { Eye } from 'lucide-react';
 import { type Language, translations } from '../lib/i18n';
 
 interface VisitorCounterProps {
   lang: Language;
 }
 
-const VISITS_STORAGE_KEY = 'puromagnet_visitor_count';
-const BASELINE_COUNT = 1480; // Baseline initial count
+const LOCAL_STORAGE_VISITS = 'puromagnet_real_visit_count';
+const COUNTER_API_URL = 'https://api.counterapi.dev/v1/puromagnet_v2_real/visits/up';
 
 export const VisitorCounter: React.FC<VisitorCounterProps> = ({ lang }) => {
   const t = translations[lang];
-  const [count, setCount] = useState<number>(BASELINE_COUNT);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [count, setCount] = useState<number | null>(null);
 
   useEffect(() => {
     let isMounted = true;
 
-    async function fetchVisits() {
+    async function fetchRealVisits() {
       try {
-        // Calculate local session visit count
-        let localCount = Number(localStorage.getItem(VISITS_STORAGE_KEY) || BASELINE_COUNT);
-        
-        // Increment for this visit if session not yet logged in this tab
-        if (!sessionStorage.getItem('puromagnet_session_logged')) {
-          localCount += 1;
-          localStorage.setItem(VISITS_STORAGE_KEY, String(localCount));
-          sessionStorage.setItem('puromagnet_session_logged', 'true');
-        }
-
-        // Try hitting free counter API for global count
-        const res = await fetch('https://api.counterapi.dev/v1/puromagnet/visits/up');
+        // Fetch real global visit counter increment
+        const res = await fetch(COUNTER_API_URL);
         if (res.ok) {
           const data = await res.json();
           if (data && typeof data.count === 'number' && isMounted) {
-            // Set global count + baseline offset
-            setCount(BASELINE_COUNT + data.count);
-            setIsLoading(false);
+            setCount(data.count);
+            localStorage.setItem(LOCAL_STORAGE_VISITS, String(data.count));
             return;
           }
         }
       } catch (e) {
-        // Fallback to local stored count if offline/network error
+        console.warn('Network counter fetch failed, using local count', e);
       }
 
+      // Fallback: real local counter starting from 1
       if (isMounted) {
-        const fallback = Number(localStorage.getItem(VISITS_STORAGE_KEY) || BASELINE_COUNT);
-        setCount(fallback);
-        setIsLoading(false);
+        let localVisits = Number(localStorage.getItem(LOCAL_STORAGE_VISITS) || 0);
+        if (!sessionStorage.getItem('puromagnet_visited_session')) {
+          localVisits += 1;
+          localStorage.setItem(LOCAL_STORAGE_VISITS, String(localVisits));
+          sessionStorage.setItem('puromagnet_visited_session', 'true');
+        }
+        setCount(localVisits || 1);
       }
     }
 
-    fetchVisits();
+    fetchRealVisits();
 
     return () => {
       isMounted = false;
@@ -66,7 +59,7 @@ export const VisitorCounter: React.FC<VisitorCounterProps> = ({ lang }) => {
       transition={{ duration: 0.5, delay: 0.6 }}
       className="fixed bottom-4 left-4 z-30 hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/90 border border-slate-800/80 backdrop-blur-xl shadow-xl font-mono text-xs text-slate-300"
     >
-      {/* Live Pulsing Dot */}
+      {/* Live Pulsing Green Dot */}
       <span className="relative flex h-2 w-2">
         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
         <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
@@ -74,8 +67,8 @@ export const VisitorCounter: React.FC<VisitorCounterProps> = ({ lang }) => {
 
       <Eye className="w-3.5 h-3.5 text-cyan-400" />
 
-      {isLoading ? (
-        <span className="text-slate-500 animate-pulse text-[11px]">Carregando...</span>
+      {count === null ? (
+        <span className="text-slate-500 animate-pulse text-[11px]">...</span>
       ) : (
         <span className="font-bold text-slate-200 font-sans tracking-wide">
           {t.visitorCountLabel(count)}
