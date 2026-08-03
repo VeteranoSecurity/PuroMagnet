@@ -72,6 +72,9 @@ export interface Translations {
   pixCopiedToast: string;
   orBuyMeACoffee: string;
 
+  // Visitor Counter
+  visitorCountLabel: (count: number) => string;
+
   // Toasts
   toastAutoPastedTitle: string;
   toastAutoPastedDesc: string;
@@ -149,6 +152,8 @@ export const translations: Record<Language, Translations> = {
     pixCopiedToast: 'Código PIX copiado para a área de transferência!',
     orBuyMeACoffee: 'Ou apoie via Buy Me a Coffee',
 
+    visitorCountLabel: (count) => `${count.toLocaleString('pt-BR')} acessos`,
+
     toastAutoPastedTitle: 'Link Colado Automaticamente!',
     toastAutoPastedDesc: 'URL decodificada e higienizada via atalho de teclado.',
     toastMagnetCopiedTitle: 'Magnet Link Copiado!',
@@ -222,6 +227,8 @@ export const translations: Record<Language, Translations> = {
     pixCopiedToast: 'PIX code copied to clipboard!',
     orBuyMeACoffee: 'Support on Buy Me a Coffee',
 
+    visitorCountLabel: (count) => `${count.toLocaleString('en-US')} visits`,
+
     toastAutoPastedTitle: 'Link Auto-Pasted!',
     toastAutoPastedDesc: 'URL decoded & sanitized via keyboard shortcut.',
     toastMagnetCopiedTitle: 'Magnet Link Copied!',
@@ -294,6 +301,8 @@ export const translations: Record<Language, Translations> = {
     pixCopyBtn: 'Copiar Código PIX',
     pixCopiedToast: '¡Código PIX copiado al portapapeles!',
     orBuyMeACoffee: 'Apoyar en Buy Me a Coffee',
+
+    visitorCountLabel: (count) => `${count.toLocaleString('es-ES')} visitas`,
 
     toastAutoPastedTitle: '¡Enlace Pegado Automáticamente!',
     toastAutoPastedDesc: 'URL decodificada e higienizada mediante atajo de teclado.',

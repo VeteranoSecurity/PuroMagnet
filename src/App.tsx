@@ -8,6 +8,7 @@ import { EmptyState } from './components/EmptyState';
 import { HistoryDrawer } from './components/HistoryDrawer';
 import { HowItWorksModal } from './components/HowItWorksModal';
 import { DonateModal } from './components/DonateModal';
+import { VisitorCounter } from './components/VisitorCounter';
 import { ToastContainer, type ToastMessage } from './components/Toast';
 import { cleanMagnetUrl, type MagnetCleanResult } from './lib/magnet-cleaner';
 import { type Language, translations } from './lib/i18n';
@@ -250,6 +251,9 @@ export function App() {
           lang={lang}
           onToast={(type, title) => addToast(type, title)}
         />
+
+        {/* Bottom-Left Live Visitor Counter Badge */}
+        <VisitorCounter lang={lang} />
 
         {/* Toast Notifications System */}
         <ToastContainer toasts={toasts} onDismiss={dismissToast} />
