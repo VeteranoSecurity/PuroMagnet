@@ -4,6 +4,7 @@ export interface Translations {
   // Header
   howItWorks: string;
   history: string;
+  supportBtn: string;
 
   // MagnetInput
   badgeText: string;
@@ -63,6 +64,14 @@ export interface Translations {
   step3Desc: string;
   modalCloseBtn: string;
 
+  // Donate Modal
+  donateTitle: string;
+  donateSub: string;
+  pixCopyLabel: string;
+  pixCopyBtn: string;
+  pixCopiedToast: string;
+  orBuyMeACoffee: string;
+
   // Toasts
   toastAutoPastedTitle: string;
   toastAutoPastedDesc: string;
@@ -79,6 +88,8 @@ export const translations: Record<Language, Translations> = {
   pt: {
     howItWorks: 'Como Funciona',
     history: 'Histórico',
+    supportBtn: 'Apoiar Projeto',
+
     badgeText: 'Filtro Anti-Redirecionamento & Decodificador Instantâneo',
     heroTitle: 'Limpe seu',
     heroTitleHighlight: 'Magnet Link',
@@ -131,6 +142,13 @@ export const translations: Record<Language, Translations> = {
     step3Desc: 'Filtramos parâmetros de rastreamento maliciosos ou desnecessários inseridos por encurtadores, entregando uma Magnet URI limpa.',
     modalCloseBtn: 'Entendi, voltar ao App',
 
+    donateTitle: 'Apoie o PuroMagnet 💛',
+    donateSub: 'Se este app te ajudou a economizar tempo e fugir dos anúncios, considere fazer uma doação via PIX para manter o projeto ativo e gratuito!',
+    pixCopyLabel: 'Código PIX Copia e Cola:',
+    pixCopyBtn: 'Copiar Código PIX',
+    pixCopiedToast: 'Código PIX copiado para a área de transferência!',
+    orBuyMeACoffee: 'Ou apoie via Buy Me a Coffee',
+
     toastAutoPastedTitle: 'Link Colado Automaticamente!',
     toastAutoPastedDesc: 'URL decodificada e higienizada via atalho de teclado.',
     toastMagnetCopiedTitle: 'Magnet Link Copiado!',
@@ -143,6 +161,8 @@ export const translations: Record<Language, Translations> = {
   en: {
     howItWorks: 'How It Works',
     history: 'History',
+    supportBtn: 'Buy Me a Coffee',
+
     badgeText: 'Anti-Redirect Filter & Instant Decoder',
     heroTitle: 'Clean your',
     heroTitleHighlight: 'Magnet Link',
@@ -195,6 +215,13 @@ export const translations: Record<Language, Translations> = {
     step3Desc: 'We filter out tracking and spam parameters added by shorteners, delivering a clean, direct Magnet URI.',
     modalCloseBtn: 'Got it, back to App',
 
+    donateTitle: 'Support PuroMagnet 💛',
+    donateSub: 'If this tool saved you time and kept you safe from ads, support our open-source project!',
+    pixCopyLabel: 'PIX Copy & Paste Code:',
+    pixCopyBtn: 'Copy PIX Code',
+    pixCopiedToast: 'PIX code copied to clipboard!',
+    orBuyMeACoffee: 'Support on Buy Me a Coffee',
+
     toastAutoPastedTitle: 'Link Auto-Pasted!',
     toastAutoPastedDesc: 'URL decoded & sanitized via keyboard shortcut.',
     toastMagnetCopiedTitle: 'Magnet Link Copied!',
@@ -207,6 +234,8 @@ export const translations: Record<Language, Translations> = {
   es: {
     howItWorks: 'Cómo Funciona',
     history: 'Historial',
+    supportBtn: 'Apoyar Proyecto',
+
     badgeText: 'Filtro Anti-Redirección y Decodificador Instantáneo',
     heroTitle: 'Limpia tu',
     heroTitleHighlight: 'Magnet Link',
@@ -258,6 +287,13 @@ export const translations: Record<Language, Translations> = {
     step3Title: 'Higienización de Ad Trackers',
     step3Desc: 'Filtramos parámetros de rastreo maliciosos o innecesarios entregando una Magnet URI limpia.',
     modalCloseBtn: 'Entendido, volver a la App',
+
+    donateTitle: 'Apoya a PuroMagnet 💛',
+    donateSub: 'Si esta herramienta te ahorró tiempo y te libró de los anuncios, ¡considera apoyarnos!',
+    pixCopyLabel: 'Código PIX Copiar y Pegar:',
+    pixCopyBtn: 'Copiar Código PIX',
+    pixCopiedToast: '¡Código PIX copiado al portapapeles!',
+    orBuyMeACoffee: 'Apoyar en Buy Me a Coffee',
 
     toastAutoPastedTitle: '¡Enlace Pegado Automáticamente!',
     toastAutoPastedDesc: 'URL decodificada e higienizada mediante atajo de teclado.',

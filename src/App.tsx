@@ -7,6 +7,7 @@ import { ErrorCard } from './components/ErrorCard';
 import { EmptyState } from './components/EmptyState';
 import { HistoryDrawer } from './components/HistoryDrawer';
 import { HowItWorksModal } from './components/HowItWorksModal';
+import { DonateModal } from './components/DonateModal';
 import { ToastContainer, type ToastMessage } from './components/Toast';
 import { cleanMagnetUrl, type MagnetCleanResult } from './lib/magnet-cleaner';
 import { type Language, translations } from './lib/i18n';
@@ -22,6 +23,7 @@ export function App() {
   const [history, setHistory] = useState<MagnetCleanResult[]>([]);
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
   const [isHowItWorksOpen, setIsHowItWorksOpen] = useState(false);
+  const [isDonateOpen, setIsDonateOpen] = useState(false);
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
 
   const t = translations[lang];
@@ -145,6 +147,7 @@ export function App() {
       if (e.key === 'Escape') {
         if (isHistoryOpen) setIsHistoryOpen(false);
         if (isHowItWorksOpen) setIsHowItWorksOpen(false);
+        if (isDonateOpen) setIsDonateOpen(false);
       }
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
@@ -159,7 +162,7 @@ export function App() {
       window.removeEventListener('paste', handleGlobalPaste);
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [handleInputChange, isHistoryOpen, isHowItWorksOpen]);
+  }, [handleInputChange, isHistoryOpen, isHowItWorksOpen, isDonateOpen]);
 
   return (
     <HyperspaceWarpDrive>
@@ -168,6 +171,7 @@ export function App() {
         <Header
           onOpenHistory={() => setIsHistoryOpen(true)}
           onOpenHowItWorks={() => setIsHowItWorksOpen(true)}
+          onOpenDonate={() => setIsDonateOpen(true)}
           historyCount={history.length}
           lang={lang}
           onLanguageChange={handleLanguageChange}
@@ -206,7 +210,7 @@ export function App() {
           {!inputValue && <EmptyState lang={lang} />}
         </main>
 
-        {/* Footer with generous padding to prevent collision */}
+        {/* Footer */}
         <footer className="w-full max-w-5xl mx-auto px-4 py-6 text-center text-xs text-slate-500 z-20 flex-shrink-0 mt-4">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 py-3 border-t border-slate-800/80">
             <div className="flex items-center gap-2">
@@ -238,6 +242,13 @@ export function App() {
           isOpen={isHowItWorksOpen}
           onClose={() => setIsHowItWorksOpen(false)}
           lang={lang}
+        />
+
+        <DonateModal
+          isOpen={isDonateOpen}
+          onClose={() => setIsDonateOpen(false)}
+          lang={lang}
+          onToast={(type, title) => addToast(type, title)}
         />
 
         {/* Toast Notifications System */}

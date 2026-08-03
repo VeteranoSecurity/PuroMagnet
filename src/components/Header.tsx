@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Magnet, History, HelpCircle, Globe, ChevronDown, Zap } from 'lucide-react';
+import { Magnet, History, HelpCircle, Globe, ChevronDown, Heart, Coffee } from 'lucide-react';
 import { type Language, translations } from '../lib/i18n';
 
 interface HeaderProps {
   onOpenHistory: () => void;
   onOpenHowItWorks: () => void;
+  onOpenDonate: () => void;
   historyCount: number;
   lang: Language;
   onLanguageChange: (lang: Language) => void;
@@ -19,6 +20,7 @@ const LANGUAGES: { code: Language; label: string; flag: string }[] = [
 export const Header: React.FC<HeaderProps> = ({
   onOpenHistory,
   onOpenHowItWorks,
+  onOpenDonate,
   historyCount,
   lang,
   onLanguageChange,
@@ -27,8 +29,16 @@ export const Header: React.FC<HeaderProps> = ({
   const [isLangOpen, setIsLangOpen] = useState(false);
   const currentLang = LANGUAGES.find((l) => l.code === lang) || LANGUAGES[0];
 
+  const handleSupportClick = () => {
+    if (lang === 'pt') {
+      onOpenDonate();
+    } else {
+      window.open('https://buymeacoffee.com/trilharede', '_blank', 'noopener,noreferrer');
+    }
+  };
+
   return (
-    <header className="w-full max-w-5xl mx-auto px-4 py-4 sm:py-6 flex items-center justify-between z-30">
+    <header className="w-full max-w-5xl mx-auto px-4 py-3 sm:py-5 flex items-center justify-between z-30">
       {/* Brand / Logo */}
       <div className="flex items-center gap-3 group cursor-pointer">
         <div className="relative flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-tr from-cyan-500 via-indigo-500 to-purple-600 p-[1px] shadow-lg shadow-cyan-500/20 group-hover:shadow-cyan-500/40 transition-all duration-300">
@@ -40,14 +50,34 @@ export const Header: React.FC<HeaderProps> = ({
           <span className="text-lg sm:text-xl font-bold tracking-tight text-white font-mono">
             Puro<span className="text-cyan-400">Magnet</span>
           </span>
-          <span className="inline-flex items-center gap-1 text-[10px] uppercase tracking-wider font-semibold px-2 py-0.5 rounded-full bg-cyan-950/80 text-cyan-400 border border-cyan-800/50">
-            <Zap className="w-2.5 h-2.5" /> v2.0
-          </span>
         </div>
       </div>
 
-      {/* Right Controls: Language Selector + Help + History */}
+      {/* Right Controls: Donate + Language Selector + Help + History */}
       <div className="flex items-center gap-2 sm:gap-3">
+        {/* Support / Donate Button (PIX for PT, Buy Me a Coffee for EN/ES) */}
+        <button
+          onClick={handleSupportClick}
+          className={`flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 text-xs font-bold rounded-xl shadow-lg transition-all duration-200 active:scale-95 ${
+            lang === 'pt'
+              ? 'bg-emerald-950/80 hover:bg-emerald-900/90 text-emerald-300 border border-emerald-500/40 shadow-emerald-500/10'
+              : 'bg-gradient-to-r from-amber-400 to-yellow-500 hover:from-amber-300 hover:to-yellow-400 text-slate-950 shadow-amber-500/20'
+          }`}
+          title={t.supportBtn}
+        >
+          {lang === 'pt' ? (
+            <>
+              <Heart className="w-3.5 h-3.5 text-emerald-400 fill-emerald-400/20" />
+              <span>Apoiar (PIX)</span>
+            </>
+          ) : (
+            <>
+              <Coffee className="w-3.5 h-3.5 text-slate-950" />
+              <span>Buy Me a Coffee</span>
+            </>
+          )}
+        </button>
+
         {/* Language Dropdown Selector */}
         <div className="relative">
           <button
