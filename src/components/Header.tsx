@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Magnet, History, HelpCircle, Globe, ChevronDown, Heart, Coffee } from 'lucide-react';
 import { type Language, translations } from '../lib/i18n';
 
@@ -53,30 +54,34 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
       </div>
 
-      {/* Right Controls: Donate + Language Selector + Help + History */}
+      {/* Right Controls: Rainbow Support + Language Selector + Help + History */}
       <div className="flex items-center gap-2 sm:gap-3">
-        {/* Support / Donate Button (PIX for PT, Buy Me a Coffee for EN/ES) */}
-        <button
-          onClick={handleSupportClick}
-          className={`flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 text-xs font-bold rounded-xl shadow-lg transition-all duration-200 active:scale-95 ${
-            lang === 'pt'
-              ? 'bg-emerald-950/80 hover:bg-emerald-900/90 text-emerald-300 border border-emerald-500/40 shadow-emerald-500/10'
-              : 'bg-gradient-to-r from-amber-400 to-yellow-500 hover:from-amber-300 hover:to-yellow-400 text-slate-950 shadow-amber-500/20'
-          }`}
-          title={t.supportBtn}
-        >
-          {lang === 'pt' ? (
-            <>
-              <Heart className="w-3.5 h-3.5 text-emerald-400 fill-emerald-400/20" />
-              <span>Apoiar (PIX)</span>
-            </>
-          ) : (
-            <>
-              <Coffee className="w-3.5 h-3.5 text-slate-950" />
-              <span>Buy Me a Coffee</span>
-            </>
-          )}
-        </button>
+        {/* Animated Rainbow Support Button */}
+        <div className="relative group">
+          {/* Outer Glowing Rainbow Aura */}
+          <div className="absolute -inset-0.5 rounded-xl rainbow-glow-bg opacity-75 group-hover:opacity-100 blur-sm transition-all duration-500" />
+
+          {/* Inner Rainbow Button */}
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={handleSupportClick}
+            className="relative flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 text-xs font-black text-white rainbow-glow-bg rounded-xl shadow-xl transition-all duration-200"
+            title={t.supportBtn}
+          >
+            {lang === 'pt' ? (
+              <>
+                <Heart className="w-3.5 h-3.5 fill-white text-pink-200 animate-pulse" />
+                <span className="drop-shadow-md">Apoiar (PIX)</span>
+              </>
+            ) : (
+              <>
+                <Coffee className="w-3.5 h-3.5 text-white animate-bounce" />
+                <span className="drop-shadow-md">Buy Me a Coffee</span>
+              </>
+            )}
+          </motion.button>
+        </div>
 
         {/* Language Dropdown Selector */}
         <div className="relative">

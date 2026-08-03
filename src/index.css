@@ -28,6 +28,34 @@
   -webkit-text-fill-color: transparent;
 }
 
+/* Animated Rainbow Gradient Shimmer */
+@keyframes rainbowFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.rainbow-glow-bg {
+  background: linear-gradient(
+    90deg,
+    #ff007f,
+    #9333ea,
+    #3b82f6,
+    #06b6d4,
+    #10b981,
+    #f59e0b,
+    #ff007f
+  );
+  background-size: 300% 300%;
+  animation: rainbowFlow 4s ease infinite;
+}
+
 /* Custom Scrollbars */
 ::-webkit-scrollbar {
   width: 8px;
